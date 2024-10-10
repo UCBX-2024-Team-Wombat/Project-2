@@ -43,6 +43,46 @@ router.post("/search", async (req, res) => {
     res.status(500).json(err);
   }
 });
+//YAsemin
+//Routo for updating a collection Yasemin
+router.put('/:id', async (req, res) => { // collection/:id, id is the placeholderfor actual collection ID andensure the database responce
+    try {
 
-// Export
-module.exports = router;
+        console.log('req.params.id');
+        console.log(req.params.id);
+        console.log('req.body');
+        console.log(req.body);
+        const updatedCollection = await Collection.update( // being sure that code waits for the db update operation completed.
+            {
+                //object passed to Collection.update (new value for title and description)
+                title: req.body.title,
+                description: req.body.description,
+            },
+            {
+                //its a condition ensure that changes only apply the object matching id 
+                where: {
+                    id: req.params.id,
+                },
+            }
+        );
+
+        // 404 msg if the id does not mach
+        if (!updatedCollection) {
+            res.status(404).json({
+                message: 'No collection found!'
+            });
+            return;
+        } //200 respond if is succesufully updates
+            res.status(200).json(updatedCollection);
+
+            // catch the arror if any hanppens in try block
+        } catch (err){
+            // 500 respond if any error occure
+            console.log(err);
+            res.status(500).json(err);
+        }
+    
+});
+
+module.exports = router
+//==========
