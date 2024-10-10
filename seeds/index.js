@@ -6,6 +6,7 @@ const {
   Card,
   CardToCollection,
 } = require("../models/index");
+//const userData = require("./userData.json");
 
 const seedDatabase = async () => {
   await sequelize.sync({ force: true });
@@ -62,3 +63,10 @@ const seedDatabase = async () => {
 };
 
 seedDatabase();
+
+
+
+// sequelize.sync({force: true}).then( async () => {
+//     await cards()
+//     console.log('cards seeded')
+// })
